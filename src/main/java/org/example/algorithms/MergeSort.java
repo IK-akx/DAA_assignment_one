@@ -1,5 +1,4 @@
 package org.example.algorithms;
-
 import org.example.metrics.Metrics;
 
 public class MergeSort {
