@@ -1,12 +1,10 @@
 package org.example.algorithms;
 
 import org.example.metrics.Metrics;
-
-import java.util.Random;
+import org.example.utils.ArrayUtils;
 
 public class QuickSort {
     private final Metrics metrics;
-    private final Random random = new Random();
 
     public QuickSort(Metrics metrics) {
         this.metrics = metrics;
@@ -20,52 +18,24 @@ public class QuickSort {
         while (left < right) {
             metrics.enterRecursion();
 
-            int pivotIndex = left + random.nextInt(right - left + 1);
-            int pivot = arr[pivotIndex];
+            int pivotPos = ArrayUtils.partition(arr, left, right, metrics);
 
-            int i = left, j = right;
-            while (i <= j) {
-                while (arr[i] < pivot) {
-                    metrics.incrementComparisons();
-                    i++;
+            if ((pivotPos - 1 - left) < (right - pivotPos)) {
+                if (left < pivotPos - 1) {
+                    quicksort(arr, left, pivotPos - 1);
                 }
-                metrics.incrementComparisons();
 
-                while (arr[j] > pivot) {
-                    metrics.incrementComparisons();
-                    j--;
-                }
-                metrics.incrementComparisons();
-
-                if (i <= j) {
-                    swap(arr, i, j);
-                    i++;
-                    j--;
-                }
-            }
-
-
-            if ((j - left) < (right - i)) {
-                if (left < j) {
-                    quicksort(arr, left, j);
-                }
-                left = i;
+                left = pivotPos;
             } else {
-                if (i < right) {
-                    quicksort(arr, i, right);
+                if (pivotPos < right) {
+                    quicksort(arr, pivotPos, right);
                 }
-                right = j;
+
+                right = pivotPos - 1;
             }
+
             metrics.leaveRecursion();
         }
-    }
-
-
-    private void swap(int[] arr, int i, int j) {
-        metrics.incrementAllocations();
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
     }
 }
 
