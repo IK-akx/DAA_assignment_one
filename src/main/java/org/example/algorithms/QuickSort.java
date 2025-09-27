@@ -20,7 +20,6 @@ public class QuickSort {
         while (left < right) {
             metrics.enterRecursion();
 
-            // выбираем случайный пивот
             int pivotIndex = left + random.nextInt(right - left + 1);
             int pivot = arr[pivotIndex];
 
@@ -57,10 +56,10 @@ public class QuickSort {
                 }
                 right = j;
             }
-
             metrics.leaveRecursion();
         }
     }
+
 
     private void swap(int[] arr, int i, int j) {
         metrics.incrementAllocations();
