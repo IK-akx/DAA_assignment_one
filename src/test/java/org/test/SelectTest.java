@@ -1,6 +1,5 @@
 package org.test;
 
-
 import org.example.algorithms.Select;
 import org.example.metrics.Metrics;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,10 @@ class SelectTest {
         Arrays.sort(sorted);
 
         Metrics metrics = new Metrics();
-        Select selector = new Select(metrics);
+        Select selector = new Select();
 
         for (int k = 0; k < arr.length; k++) {
-            int result = selector.select(arr.clone(), k);
+            int result = selector.select(arr.clone(), k, metrics);
             assertEquals(sorted[k], result);
         }
     }
@@ -39,9 +38,9 @@ class SelectTest {
             int k = rnd.nextInt(n);
 
             Metrics metrics = new Metrics();
-            Select selector = new Select(metrics);
+            Select selector = new Select();
 
-            int result = selector.select(arr.clone(), k);
+            int result = selector.select(arr.clone(), k, metrics);
             assertEquals(sorted[k], result);
         }
     }
