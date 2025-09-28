@@ -1,4 +1,4 @@
-# DAA Assignment One 
+# DAA Assignment One (v1.0)
 # Iskander Kustayev (SE-2403)
 
 ## How to Run
