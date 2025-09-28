@@ -6,21 +6,15 @@ import org.example.utils.ArrayUtils;
 import java.util.Arrays;
 
 public class Select {
-    private final Metrics metrics;
 
-    public Select(Metrics metrics) {
-        this.metrics = metrics;
-    }
-
-
-    public int select(int[] arr, int k) {
+    public int select(int[] arr, int k, Metrics metrics) {
         if (k < 0 || k >= arr.length) {
             throw new IllegalArgumentException("k is out of bounds");
         }
-        return select(arr, 0, arr.length - 1, k);
+        return select(arr, 0, arr.length - 1, k, metrics);
     }
 
-    private int select(int[] arr, int left, int right, int k) {
+    private int select(int[] arr, int left, int right, int k, Metrics metrics) {
         metrics.enterRecursion();
 
         while (true) {
@@ -29,9 +23,8 @@ public class Select {
                 return arr[left];
             }
 
-            int pivot = medianOfMedians(arr, left, right);
-
-            int pivotIndex = partition(arr, left, right, pivot);
+            int pivot = medianOfMedians(arr, left, right, metrics);
+            int pivotIndex = partition(arr, left, right, pivot, metrics);
 
             if (k == pivotIndex) {
                 metrics.leaveRecursion();
@@ -44,7 +37,7 @@ public class Select {
         }
     }
 
-    private int medianOfMedians(int[] arr, int left, int right) {
+    private int medianOfMedians(int[] arr, int left, int right, Metrics metrics) {
         int n = right - left + 1;
         if (n <= 5) {
             Arrays.sort(arr, left, right + 1);
@@ -53,6 +46,7 @@ public class Select {
 
         int numMedians = (int) Math.ceil((double) n / 5);
         int[] medians = new int[numMedians];
+        metrics.addAllocations(numMedians);
 
         for (int i = 0; i < numMedians; i++) {
             int subLeft = left + i * 5;
@@ -61,10 +55,10 @@ public class Select {
             medians[i] = arr[subLeft + (subRight - subLeft) / 2];
         }
 
-        return medianOfMedians(medians, 0, medians.length - 1);
+        return medianOfMedians(medians, 0, medians.length - 1, metrics);
     }
 
-    private int partition(int[] arr, int left, int right, int pivot) {
+    private int partition(int[] arr, int left, int right, int pivot, Metrics metrics) {
         int i = left;
         int j = right;
 

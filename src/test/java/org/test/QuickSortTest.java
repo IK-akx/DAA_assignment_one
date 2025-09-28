@@ -20,8 +20,8 @@ class QuickSortTest {
         Arrays.sort(expected);
 
         Metrics metrics = new Metrics();
-        QuickSort sorter = new QuickSort(metrics);
-        sorter.sort(arr);
+        QuickSort sorter = new QuickSort();
+        sorter.sort(arr, metrics);
 
         assertArrayEquals(expected, arr);
         assertTrue(metrics.getMaxDepth() > 0);
@@ -35,8 +35,8 @@ class QuickSortTest {
         Arrays.sort(expected);
 
         Metrics metrics = new Metrics();
-        QuickSort sorter = new QuickSort(metrics);
-        sorter.sort(arr);
+        QuickSort sorter = new QuickSort();
+        sorter.sort(arr, metrics);
 
         assertArrayEquals(expected, arr);
 
@@ -50,8 +50,8 @@ class QuickSortTest {
         int[] expected = arr.clone();
 
         Metrics metrics = new Metrics();
-        QuickSort sorter = new QuickSort(metrics);
-        sorter.sort(arr);
+        QuickSort sorter = new QuickSort();
+        sorter.sort(arr, metrics);
 
         assertArrayEquals(expected, arr);
     }

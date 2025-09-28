@@ -4,17 +4,12 @@ import org.example.metrics.Metrics;
 import org.example.utils.ArrayUtils;
 
 public class QuickSort {
-    private final Metrics metrics;
 
-    public QuickSort(Metrics metrics) {
-        this.metrics = metrics;
+    public static void sort(int[] arr, Metrics metrics) {
+        quicksort(arr, 0, arr.length - 1, metrics);
     }
 
-    public void sort(int[] arr) {
-        quicksort(arr, 0, arr.length - 1);
-    }
-
-    private void quicksort(int[] arr, int left, int right) {
+    private static void quicksort(int[] arr, int left, int right, Metrics metrics) {
         while (left < right) {
             metrics.enterRecursion();
 
@@ -22,15 +17,13 @@ public class QuickSort {
 
             if ((pivotPos - 1 - left) < (right - pivotPos)) {
                 if (left < pivotPos - 1) {
-                    quicksort(arr, left, pivotPos - 1);
+                    quicksort(arr, left, pivotPos - 1, metrics);
                 }
-
                 left = pivotPos;
             } else {
                 if (pivotPos < right) {
-                    quicksort(arr, pivotPos, right);
+                    quicksort(arr, pivotPos, right, metrics);
                 }
-
                 right = pivotPos - 1;
             }
 
@@ -38,4 +31,3 @@ public class QuickSort {
         }
     }
 }
-
