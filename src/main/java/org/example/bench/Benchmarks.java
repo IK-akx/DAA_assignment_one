@@ -15,7 +15,7 @@ public class Benchmarks {
 
     private static void benchmarkSelectVsSort() {
         Random rnd = new Random(42);
-        int n = 10000;
+        int n = 1000;
         int[] arr = rnd.ints(n, 0, 1_000_000).toArray();
         int k = n / 2;
 
